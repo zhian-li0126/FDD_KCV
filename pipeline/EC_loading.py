@@ -8,9 +8,9 @@ from imblearn.over_sampling import SMOTE
 import os
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
-def load_prepare_diagnosis_pH(filepath= os.path.join(os.getcwd() + "/pipeline/utl/pH_average.csv"), split=True, scale_features=True, apply_smote=True):
+def load_prepare_diagnosis_EC(filepath= os.path.join(os.getcwd() + "/pipeline/utl/EC_average.csv"), split=True, scale_features=True, apply_smote=True):
     """
-    Loads and preprocesses the pH dataset for fault diagnosis.
+    Loads and preprocesses the EC dataset for fault diagnosis.
 
     Parameters:
     - filepath (str): Path to the CSV file.
@@ -27,9 +27,9 @@ def load_prepare_diagnosis_pH(filepath= os.path.join(os.getcwd() + "/pipeline/ut
     dataset = pd.read_csv(filepath)
 
     # Define feature and diagnosis columns
-    feature_cols = ['pH_lower', 'pH_upper', 'pH(t-1)', 'pH(t-2)', 'pH(t-3)', 'pH']
-    diagnosis_cols = ['pH', 'pH_bias_up', 'pH_bias_low', 'pH_drift_up', 'pH_drift_low', 
-                        'pH_precision', 'pH_stuck', 'pH_spike']
+    feature_cols = ['EC_lower', 'EC_upper', 'EC(t-1)', 'EC(t-2)', 'EC(t-3)', 'EC']
+    diagnosis_cols = ['EC', 'EC_bias_up', 'EC_bias_low', 'EC_drift_up', 'EC_drift_low', 
+                        'EC_precision', 'EC_stuck', 'EC_spike']
 
     # Define the desired order for fault classes.
     fault_order = ["normal", "bias_up", "bias_low", "drift_up", "drift_low", "precision", "stuck", "spike"]
@@ -88,9 +88,9 @@ def load_prepare_diagnosis_pH(filepath= os.path.join(os.getcwd() + "/pipeline/ut
         return X, y
 
 
-def load_prepare_detection_pH(filepath= os.path.join(os.getcwd() + "/pipeline/utl/pH_average.csv"), split=True, scale_features=True, apply_smote=True):
+def load_prepare_detection_EC(filepath= os.path.join(os.getcwd() + "/pipeline/utl/C_average.csv"), split=True, scale_features=True, apply_smote=True):
     """
-    Loads and preprocesses the pH dataset for fault detection.
+    Loads and preprocesses the EC dataset for fault detection.
 
     Parameters:
     - filepath (str): Path to the CSV file.
@@ -106,9 +106,9 @@ def load_prepare_detection_pH(filepath= os.path.join(os.getcwd() + "/pipeline/ut
     dataset = pd.read_csv(filepath)
 
     # Define feature and diagnosis columns
-    feature_cols = ['pH_lower', 'pH_upper', 'pH(t-1)', 'pH(t-2)', 'pH(t-3)', 'pH']
-    diagnosis_cols = ['pH', 'pH_bias_up', 'pH_bias_low', 'pH_drift_up', 'pH_drift_low', 
-                        'pH_precision', 'pH_stuck', 'pH_spike']
+    feature_cols = ['EC_lower', 'EC_upper', 'EC(t-1)', 'EC(t-2)', 'EC(t-3)', 'EC']
+    diagnosis_cols = ['EC', 'EC_bias_up', 'EC_bias_low', 'EC_drift_up', 'EC_drift_low', 
+                        'EC_precision', 'EC_stuck', 'EC_spike']
 
     # Define the desired order for fault classes.
     fault_order = ["normal", "bias_up", "bias_low", "drift_up", "drift_low", "precision", "stuck", "spike"]
@@ -167,7 +167,7 @@ def load_prepare_detection_pH(filepath= os.path.join(os.getcwd() + "/pipeline/ut
         return X, y
 
 if __name__ == "__main__":
-    result = load_prepare_diagnosis_pH()  # Default is split=True
+    result = load_prepare_diagnosis_EC()  # Default is split=True
     print(len(result))
 
     if len(result) == 2:  # When split=False

@@ -1,41 +1,52 @@
 import importlib
 import os
-from data_loader import load_data
 import pandas as pd
+from data_loader import load_data
+
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = '0'
+
 
 # List of model file names (without .py extension)
-model_names = ["pH_LSTM", "pH_ANN", "pH_RF", "EC_LSTM", "EC_ANN", "EC_RF"]
+diagnosis_models = ["pH_LSTM", "pH_ANN", "pH_RF", "EC_LSTM", "EC_ANN", "EC_RF"]
+detection_models = ["pH_LSTM", "pH_ANN", "pH_RF", "EC_LSTM", "EC_ANN", "EC_RF"]
 
-# Path to the models directory
-models_dir = "models"
 
 # Training function
-def train_model(model_name):
+def train_model(domain: str, model_name: str):
     """
-    Dynamically imports a model, loads the dataset, and starts training.
+    Dynamically imports a model from models/{domain}/{model_name},
+    loads the dataset, and starts training.
     """
-    print(f"\n🚀 Training model: {model_name} ...")
+    print(f"\n🚀 Training model: {model_name} in domain: {domain} ...")
 
-    # Load dataset
-    x, y = load_data(model_name)
+    # Load data
+    x, y = load_data(domain, model_name)
 
-    # Dynamically import the model module
-    model_module = importlib.import_module(f"models.{model_name}")
-    
-    # Instantiate the model (Assuming each model has a `Model` class)
+    # Dynamically import the correct subfolder + model
+    #    e.g. "models.diagnosis.pH_LSTM" or "models.detection.EC_ANN"
+    module_path = f"models.{domain}.{model_name}"
+    model_module = importlib.import_module(module_path)
+
+    # Instantiate the model
     model = model_module.Model()
 
-    # Train model (Assume each model has a `train` method)
-    result = model.train(x, y)
+    # Train model
+    result = model.train_model(x, y)
     
     # Save model
-    df = pd.DataFrame(result)
+    df = pd.DataFrame(f"data/result/{result}")
     df.to_csv(f"{model_name}.csv", index=False)
 
-    print(f"✅ Training complete for: {model_name}\n
-          f"model saved to {os.getCWD()} + {model_name}.csv\n")
+    print(f"✅ Training complete for: {model_name}\n model saved to {os.getcwd()}\{model_name}.csv\n")
 
 # Run all models sequentially
+def main():
+    # Example usage: train all diagnosis models, then all detection models
+    for m in diagnosis_models:
+        train_model("diagnosis", m)
+
+    for m in detection_models:
+        train_model("detection", m)
+
 if __name__ == "__main__":
-    for model_name in model_names:
-        train_model(model_name)
+    train_model("detection" ,detection_models[1])
