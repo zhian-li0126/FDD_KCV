@@ -56,7 +56,7 @@ def train_random_forest_kcv(x, y, n_estimators=100, max_features='sqrt', min_sam
     print("Training Random Forest for pH diagnosis...")
     # Ensure save path exists
     os.makedirs(model_save_path, exist_ok=True)
-    best_model_filename = os.path.join(model_save_path, "best_rf_model.pkl")
+    best_model_filename = os.path.join(model_save_path, "best_pH_rf_model.pkl")
 
     # Prepare result tracking
     fold_list = []
