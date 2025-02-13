@@ -34,8 +34,15 @@ def train_model(domain: str, model_name: str):
     result = model.train_model(x, y)
     
     # Save model
-    df = pd.DataFrame(f"data/result/{result}")
-    df.to_csv(f"{model_name}.csv", index=False)
+    df = pd.DataFrame(result)
+    output_dir = os.path.join("data", "result")
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, f"{model_name}.csv")
+
+    # Write to CSV
+    df.to_csv(output_path, index=False)
+
+    print(f"✅ Training complete for: {model_name}\n model saved to {os.getcwd()}\{model_name}.csv\n")
 
     print(f"✅ Training complete for: {model_name}\n model saved to {os.getcwd()}\{model_name}.csv\n")
 
