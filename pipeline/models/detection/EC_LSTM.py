@@ -103,7 +103,7 @@ class Model(nn.Module):
 
         # Ensure model save path exists
         os.makedirs(model_save_path, exist_ok=True)
-        best_model_filename = os.path.join(model_save_path, "best_model.pth")
+        best_model_filename = os.path.join(model_save_path, "best_EC_LSTM_model.pth")
 
         # Move model to GPU if available
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
