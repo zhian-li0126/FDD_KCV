@@ -5,6 +5,8 @@ The final results are located in "data/result" in the form of csv file, recorded
 
 ```bash
 pip install -r requirement.text
+```
 
 ```bash
 python main_pipeline.py
+```
