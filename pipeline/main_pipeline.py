@@ -49,4 +49,4 @@ def main():
         train_model("detection", m)
 
 if __name__ == "__main__":
-    train_model("detection" ,detection_models[1])
+    main()
