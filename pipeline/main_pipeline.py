@@ -42,9 +42,7 @@ def train_model(domain: str, model_name: str):
     # Write to CSV
     df.to_csv(output_path, index=False)
 
-    print(f"✅ Training complete for: {model_name}\n model saved to {os.getcwd()}\{model_name}.csv\n")
-
-    print(f"✅ Training complete for: {model_name}\n model saved to {os.getcwd()}\{model_name}.csv\n")
+    print(f"✅ Training complete for: {model_name}\n model saved to {os.getcwd()}/data/results/{model_name}.csv\n")
 
 # Run all models sequentially
 def main():
