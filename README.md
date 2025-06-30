@@ -10,5 +10,5 @@ pip install -r requirements.txt
 
 To run the main pipeline script, execute:
 ```bash
-python main_pipeline.py
+python pipeline/main_pipeline.py
 ```
